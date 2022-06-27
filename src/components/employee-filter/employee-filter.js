@@ -13,7 +13,7 @@ const EmployeeFilter = () => {
             </button>
             <button type="button"
                     className="btn btn-outline-light">
-                Salary more than 1000 $
+                Salary more than 1000$
             </button>
         </div>
     )
