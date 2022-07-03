@@ -2,29 +2,14 @@ import './employees-list-item.css';
 import {Component} from "react";
 
 class EmployeesListItem extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isForSalaryRaise: false,
-            isFavourite: false,
-        }
-    }
-
-    toggleCookie = () => {
-        this.setState(({isForSalaryRaise}) => ({
-            isForSalaryRaise: !isForSalaryRaise,
-        }))
-    }
-
-    makeFavourite = () => {
-        this.setState(({isFavourite}) => ({
-            isFavourite: !isFavourite,
-        }))
-    }
-
     render () {
-        const {name, salary} = this.props;
-        const {isForSalaryRaise, isFavourite} = this.state;
+        const { name,
+                salary,
+                onDelete,
+                onToggleProp,
+                isForSalaryRaise,
+                isFavourite,
+              } = this.props;
         let listClassName = "list-group-item d-flex justify-content-between"
         if(isForSalaryRaise) {
             listClassName += ' increase';
@@ -34,17 +19,19 @@ class EmployeesListItem extends Component {
         }
         return (
             <li className={listClassName}>
-                <span onClick={this.makeFavourite} className="list-group-item-label">{name}</span>
+                <span onClick={onToggleProp} data-toggle="isFavourite" className="list-group-item-label">{name}</span>
                 <input type="text" className="list-group-item-input" defaultValue={`${salary}$`}/>
                 <div className='d-flex justify-content-center align-items-center'>
                     <button type="button"
-                            onClick={this.toggleCookie}
+                            onClick={onToggleProp} data-toggle="isForSalaryRaise"
                             className="btn-cookie btn-sm ">
                         <i className="fas fa-cookie"/>
                     </button>
 
                     <button type="button"
-                            className="btn-trash btn-sm ">
+                            className="btn-trash btn-sm "
+                            onClick={onDelete}
+                    >
                         <i className="fas fa-trash"/>
                     </button>
                     <i className="fas fa-star"/>
