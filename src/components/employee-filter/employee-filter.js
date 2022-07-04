@@ -1,20 +1,29 @@
 import './employee-filter.css';
 
-const EmployeeFilter = () => {
+
+const EmployeeFilter = (props) => {
+    const buttonsData = [
+        {name: 'all', label: 'All'},
+        {name: 'increase', label: 'For Salary Raise'},
+        {name: 'moreThan1000', label: 'Salary more than 1000$'}
+    ];
+
+    const buttons = buttonsData.map(({name, label}) => {
+        const active = props.filter === name;
+        const btnClass = active ? 'btn-light' : 'btn-outline-light';
+        return (
+            <button type="button"
+                    className={`btn ${btnClass}`}
+                    key={name}
+                    onClick={() => props.onFilterSelect(name)}>
+                {label}
+            </button>
+        )
+    })
+
     return (
         <div className="btn-group">
-            <button type="button"
-                    className="btn btn-light">
-                All employees
-            </button>
-            <button type="button"
-                    className="btn btn-outline-light">
-                For increase
-            </button>
-            <button type="button"
-                    className="btn btn-outline-light">
-                Salary more than 1000$
-            </button>
+            {buttons}
         </div>
     )
 }
